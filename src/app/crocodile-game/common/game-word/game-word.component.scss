@@ -1,0 +1,80 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 90%;
+}
+
+.list {
+  background-color: transparent;
+  overflow-y: scroll;
+  height: calc(100vh - 268px);
+  scroll-behavior: smooth;
+}
+
+.bubble-container {
+  margin-bottom: 10px;
+  display: block;
+  animation-name: bubble-left-animation;
+}
+
+.bubble {
+  background-color: white;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  animation: bubble-animation 0.5s ease;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+.left {
+  background-color: #FFFFFF;
+}
+
+.right {
+  background-color: #A9A9A9;
+}
+
+.typing-effect {
+  animation: typing-animation 0.5s steps(40, end) forwards;
+  display: inline-block;
+  white-space: normal;
+}
+
+@keyframes typing-animation {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes bubble-animation {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes bubble-left-animation {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes bubble-right-animation {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate {
+  animation-play-state: running !important;
+}

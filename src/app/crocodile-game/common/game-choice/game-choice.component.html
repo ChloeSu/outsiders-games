@@ -1,0 +1,6 @@
+
+<div class="container">
+  <ng-container *ngFor="let option of options$ | async">
+    <button type="button" class="btn text-white bg-black btn-lg btn-block m-1" (click)="btnClick(option)">{{ option.text }}({{ option.score }})</button>
+  </ng-container>
+</div>
