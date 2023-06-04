@@ -11,6 +11,7 @@ import { GameWordComponent } from './crocodile-game/common/game-word/game-word.c
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
+import { CowGameComponent } from './cow-game/cow-game/cow-game.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { HomeComponent } from './home/home.component';
     GameHpComponent,
     GameChoiceComponent,
     GameWordComponent,
-    HomeComponent
+    HomeComponent,
+    CowGameComponent
   ],
   imports: [
     BrowserModule,

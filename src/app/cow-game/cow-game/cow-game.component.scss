@@ -1,0 +1,76 @@
+:host {
+  margin: auto;
+  width: 90%;
+  display: block;
+}
+
+.container {
+  position: relative;
+  width: 90%;
+  height: 40px;
+  background-color: #eaeaea;
+  margin: auto;
+  border: 2px solid #eaeaea;
+  border-radius: 50px;
+}
+
+.container::before,
+.container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background-color: #FF0000;
+}
+
+.container::before {
+  left: 0;
+  width: 20%;
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
+}
+
+.container::after {
+  right: 0;
+  width: 20%;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+}
+
+.middle-section {
+  height: 100%;
+  position: relative;
+  left: calc(20% - 10px);
+  width: calc(60% + 20px); // 100% - 2(20% - 10px)
+  background-color: #00FF00;
+}
+
+.needle {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(-50%, -50%);
+  width: 5px;
+  height: 40px;
+  background-color: #aeaeae;
+  transition: left 0.1s;
+  z-index: 999;
+}
+
+button {
+  margin-top: 20px;
+}
+
+.health-bar {
+  width: 75%;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.health {
+  height: 100%;
+  background-color: #ff0000;
+  transition: width 1s linear;
+}
