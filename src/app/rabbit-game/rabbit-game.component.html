@@ -1,0 +1,35 @@
+<div class="game-container">
+  <!-- 好感度 -->
+  <div class="d-flex ml-3 mr-3 p-3 justify-content-between align-items-center">
+    <label class="ml-3">好感度:</label>
+    <div class="health-bar">
+      <div class="health" [style.width.%]="rabbitHealth"></div>
+    </div>
+  </div>
+  <div id="rabbit-container" class="rabbit-container">
+    <img [src]="getRabbitImageSrc()" class="rabbit-image" alt="Rabbit">
+  </div>
+  <div class="item-container">
+    <div class="item" *ngFor="let item of items"
+      cdkDrag
+      (cdkDragEnded)="onItemDragEnd($event, item)"
+      [style.top.px]="item.position.top"
+      [style.left.px]="item.position.left">
+      {{ item.icon }}
+    </div>
+  </div>
+</div>
+
+<div class="container stage-desc">
+  <div class="row">
+    <div class="col-12 col-md-6 col-lg-4 d-flex" *ngFor="let i of [1, 2, 3, 4, 5]">
+      <div class="col-4">
+        <img src="/assets/images/rabbit-game/{{ i }}.jpg" class="custom-img" alt="Image {{ i }}">
+      </div>
+      <div class="col-8">
+        <label>Stage {{ i }} 健康度:{{ i * 20}}</label>
+      </div>
+    </div>
+  </div>
+</div>
+

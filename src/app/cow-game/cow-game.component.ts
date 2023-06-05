@@ -14,8 +14,6 @@ export class CowGameComponent implements OnInit {
   defaultOffset: number = 8;
   score: number = 0;
   buttonClickEvent$ = new Subject<void>();
-  @ViewChild("hp") hpElement!: ElementRef;
-  @ViewChild("delay") delayElement!: ElementRef;
 
   constructor() { }
 
@@ -29,7 +27,7 @@ export class CowGameComponent implements OnInit {
       // 拉bar兩端一邊文字可能是打爆他、一邊是罵爆他
       // 要在綠色安全值點擊，才能增加好感值
       // 而在紅色區會扣10好感、在綠色區會加20好感，直到好感一百會過關
-      this.score+= this.needlePosition > 15 && this.needlePosition < 85 ? 20 : -10;
+      this.score+= this.needlePosition >= 20 && this.needlePosition <= 80 ? 20 : -10;
     })
   }
 
@@ -49,7 +47,7 @@ export class CowGameComponent implements OnInit {
 
   moveNeedle() {
     let offset = this.defaultOffset;
-    offset = this.needlePosition > 20 && this.needlePosition < 80 ? offset : 2;
+    offset = this.needlePosition >= 20 && this.needlePosition <= 80 ? offset : 2;
     if (this.isNeedleMoving) {
       if (this.needlePosition <= 0) {
         this.isMovingForward = true;
@@ -70,9 +68,9 @@ export class CowGameComponent implements OnInit {
   }
 
   getHintText(): string {
-    if (this.needlePosition <= 20) {
+    if (this.needlePosition < 20) {
       return '罵爆牠';
-    } else if (this.needlePosition >= 80) {
+    } else if (this.needlePosition > 80) {
       return '打爆牠';
     } else {
       return '　';
@@ -80,12 +78,12 @@ export class CowGameComponent implements OnInit {
   }
 
   getCowImageSrc(): string {
-    if (this.needlePosition <= 20) {
-      return '/assets/images/sadcow.gif';
-    } else if (this.needlePosition >= 80) {
-      return '/assets/images/angrycow.gif';
+    if (this.needlePosition < 20) {
+      return '/assets/images/cow-game/sadcow.gif';
+    } else if (this.needlePosition > 80) {
+      return '/assets/images/cow-game/angrycow.gif';
     } else {
-      return '/assets/images/happycow.gif';
+      return '/assets/images/cow-game/happycow.gif';
     }
   }
 }

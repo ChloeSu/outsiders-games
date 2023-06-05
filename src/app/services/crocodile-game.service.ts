@@ -12,7 +12,14 @@ export class CrocodileGameService {
   private _scoreSubject = new BehaviorSubject(100);
   private _messageTypingSubject = new BehaviorSubject<boolean>(false);
 
-  constructor() { }
+  // fromEvent not working in safari, try addEventListener way...
+  private _clickEvent = new Subject<MouseEvent>();
+
+  constructor() {
+    window.addEventListener('click', (event: MouseEvent) => {
+      this._clickEvent.next(event);
+    });
+  }
 
   public get OptioinEvent() {
     return this._newOptionEvent;
@@ -82,7 +89,7 @@ export class CrocodileGameService {
     this._messageSubject.next(messages[1]);
     const needUserChoice$ = new Subject();
 
-    fromEvent(window, 'click').pipe(
+    this._clickEvent.pipe(
       debounce(() => timer(300)),
       // scan(item => item + 1, 0),
       map(x => messages[Math.min(Math.floor(Math.random()* 5), 5)]),

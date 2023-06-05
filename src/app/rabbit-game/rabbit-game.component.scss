@@ -1,0 +1,92 @@
+:host {
+  margin: auto;
+  width: 90%;
+  display: block;
+}
+
+.game-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.rabbit-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 50%;
+  background-color: #fff;
+  margin-top: 100px;
+}
+
+.rabbit-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.item-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.item {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.8em;
+  height: 1.8em;
+  font-size: 2em;
+  border-radius: 50%;
+  background-color: yellow;
+  cursor: move;
+}
+
+.health-bar {
+  width: 75%;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.health {
+  height: 100%;
+  background-color: #0f0;
+  transition: width 1s linear;
+}
+
+.custom-img {
+  width: 55%;
+}
+
+.stage-desc {
+  margin-top: 100px;
+
+  label {
+    line-height: 3rem;
+  }
+}
+
+@media (max-height: 775px) {
+  .rabbit-container {
+    width: 120px;
+    height: 120px;
+  }
+
+  .stage-desc {
+    margin-top: 75px;
+
+    label {
+      line-height: 3rem;
+    }
+  }
+}
+
+
