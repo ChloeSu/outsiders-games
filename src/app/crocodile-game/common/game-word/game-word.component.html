@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="list" #scrollMe>
+  <div class="list" #scrollMe >
     <div *ngFor="let message of messages; let i=index;" class="bubble-container" >
       <div class="bubble" [ngClass]="message.userSend ? 'right' : 'left'">
         <span class="typing-effect" [innerHTML]="message.text"></span>

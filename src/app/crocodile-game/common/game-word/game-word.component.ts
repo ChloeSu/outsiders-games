@@ -12,33 +12,20 @@ import { BehaviorSubject, Observable, Subject, concatMap, delay, map, takeUntil,
 })
 export class GameWordComponent implements OnInit, AfterViewChecked {
   messages: any[] = [];
-  form: FormGroup;
-  @ViewChild('scrollMe')
-  private myScrollContainer!: ElementRef;
+  @ViewChild('scrollMe') private myScrollContainer!: ElementRef;
   currentMessage: string = '';
   currentIndex: number = 0;
   typingSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
   private destroy$ = new Subject<void>();
 
   constructor(
-    private fb: FormBuilder,
     private route: ActivatedRoute,
     private gameSrv: CrocodileGameService
     ) {
-    this.form = this.fb.group({
-      input: []
-    });
   }
 
   ngOnInit() {
     this.gameSrv.generateInitMessage();
-    // this.gameSrv.Messages.pipe(
-    //   tap(_=>this.messages.push(_)),
-    //   concatMap(message => this.typingEffect(message))
-    // ).subscribe(msg => {
-
-    // });
-
     this.gameSrv.Messages.pipe(
       takeUntil(this.destroy$)
     ).subscribe(message => {
@@ -62,28 +49,6 @@ export class GameWordComponent implements OnInit, AfterViewChecked {
       this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
     } catch (err) {}
   }
-  // typingEffect(message: Message) {
-  //   return new Observable<Message>(observer => {
-  //     let currentIndex = 0;
-  //     const typingInterval = setInterval(() => {
-  //       if (currentIndex < message.text.length) {
-  //         this.typingSubject.next(message.text.substring(0, currentIndex + 1));
-  //         currentIndex++;
-  //       } else {
-  //         clearInterval(typingInterval);
-  //         observer.next(message);
-  //         observer.complete();
-  //       }
-  //     }, 100); // 打字速度，每個字元間隔 100 毫秒
-  //   }).pipe(
-  //     delay(1000) // 延遲 1 秒後繼續下一個訊息的打字特效
-  //   );
-  // }
-
-  // messageWithTypingEffect(message: string): string {
-  //   let typedMsg = this.typingSubject.getValue();
-  //   return typedMsg;
-  // }
 
   startTypingAnimation() {
     let index = this.messages.length - 1;
@@ -93,14 +58,19 @@ export class GameWordComponent implements OnInit, AfterViewChecked {
     const intervalId = setInterval(() => {
       if (charIndex < message.length) {
         charIndex++;
+        this.gameSrv.setMessageTypingStatus(true);
       } else {
         clearInterval(intervalId);
         this.updateMessageAnimation(index, false); // 顯示完畢後停止動畫
-        if(this.messages[index].waitForChoice) this.gameSrv.requestNextQuesion();
-        this.gameSrv.setMessageTypingStatus(false);
+        if(this.messages[index].waitForChoice) {
+          this.gameSrv.requestNextQuesion();
+          this.gameSrv.setMessageTypingStatus(true);
+        } else {
+          this.gameSrv.setMessageTypingStatus(false);
+        }
       }
       this.messages[index].text = message.slice(0, charIndex);
-    }, 100);
+    }, 30);
 
     this.updateMessageAnimation(index, true); // 開始打字動畫
   }

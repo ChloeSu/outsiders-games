@@ -1,15 +1,13 @@
 .container {
   display: flex;
   flex-direction: column;
-  margin: auto;
-  width: 90%;
 }
 
 .list {
   background-color: transparent;
   overflow-y: scroll;
-  height: calc(100vh - 268px);
   scroll-behavior: smooth;
+  height: 100%;
 }
 
 .bubble-container {

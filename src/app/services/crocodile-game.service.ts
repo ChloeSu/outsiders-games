@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject, debounce, fromEvent, map, skipWhile, takeUntil, tap, timer } from 'rxjs';
-import { Message } from '../interfaces/message';
+import { BehaviorSubject, Subject, debounce, filter, fromEvent, map, takeUntil, tap, timer } from 'rxjs';
+import { Message, sampleMessages } from '../interfaces/message';
 import { Option } from '../interfaces/option';
 
 @Injectable({
@@ -8,17 +8,12 @@ import { Option } from '../interfaces/option';
 })
 export class CrocodileGameService {
   private _newOptionEvent = new Subject<Option[]>();
-  private _messageSubject = new Subject<Message>();
+  private _messageSubject = new BehaviorSubject<Message>(sampleMessages[0]);
   private _scoreSubject = new BehaviorSubject(100);
-  private _messageTypingSubject = new BehaviorSubject<boolean>(false);
-
-  // fromEvent not working in safari, try addEventListener way...
-  private _clickEvent = new Subject<MouseEvent>();
+  private _messageStoppingSubject = new BehaviorSubject<boolean>(false);
+  private _messages = sampleMessages;
 
   constructor() {
-    window.addEventListener('click', (event: MouseEvent) => {
-      this._clickEvent.next(event);
-    });
   }
 
   public get OptioinEvent() {
@@ -34,7 +29,7 @@ export class CrocodileGameService {
   }
 
   setMessageTypingStatus(isTyping: boolean) {
-    this._messageTypingSubject.next(isTyping);
+    this._messageStoppingSubject.next(isTyping);
   }
 
   pushNewOption(options: Option[]) {
@@ -52,6 +47,8 @@ export class CrocodileGameService {
     this._newOptionEvent.next([]);
     this._messageSubject.next(message);
     timer(1000).subscribe(_ => {
+      // TODO: put correct message for this option, just choose randomly now
+      this._messageSubject.next(this.getRamdonMessage());
       this.generateInitMessage();
     });
 
@@ -59,42 +56,13 @@ export class CrocodileGameService {
   }
 
   generateInitMessage() {
-    let messages = [
-      {
-        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-        waitForChoice: true
-      },
-      {
-        text: 'Nullam consequat ultricies dui, eget sollicitudin enim pellentesque eget.',
-        waitForChoice: false
-      },
-      {
-        text: 'Fusce varius risus id libero tristique, eget euismod justo mattis.',
-        waitForChoice: true
-      },
-      {
-        text: 'In hac habitasse platea dictumst. Quisque venenatis nunc id mi fringilla, ac consectetur lacus facilisis. ',
-        waitForChoice: false
-      },
-      {
-        text: 'Curabitur in luctus arcu. Nunc fringilla odio nec tempor consequat.',
-        waitForChoice: true
-      },
-      {
-        text: 'Curabitur ullamcorper, ligula et aliquet tristique, massa velit aliquam urna, ac cursus nulla nisl sit amet nunc.',
-        waitForChoice: true
-      }
-    ]
-
-    this._messageSubject.next(messages[1]);
     const needUserChoice$ = new Subject();
 
-    this._clickEvent.pipe(
+    fromEvent<PointerEvent>(document, 'pointerdown').pipe(
       debounce(() => timer(300)),
-      // scan(item => item + 1, 0),
-      map(x => messages[Math.min(Math.floor(Math.random()* 5), 5)]),
+      map(x => this.getRamdonMessage()),
+      filter(_=> !this._messageStoppingSubject.getValue()),
       takeUntil(needUserChoice$),
-      skipWhile(() => this._messageTypingSubject.getValue())
     ).subscribe(msg => {
       this._messageSubject.next(msg);
       if(msg.waitForChoice) needUserChoice$.next(0);
@@ -117,6 +85,10 @@ export class CrocodileGameService {
         score: Math.round(60 * Math.random())
       }])
     });
+  }
+
+  getRamdonMessage() {
+    return this._messages[Math.min(Math.floor(Math.random()* 5), 5)];
   }
 
 }

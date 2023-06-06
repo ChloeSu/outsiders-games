@@ -1,9 +1,35 @@
 :host {
   background: url("/assets/images/crocodile-game/crocodile.gif") no-repeat center center fixed;
-  height: 100vh;
   display: block;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.scrollable-container {
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+app-game-hp {
+  height: 60px;
+}
+
+app-game-choice {
+  height: 180px;
+  margin: 15px 0px 5px;
+}
+
+app-game-word {
+  height: 100%;
+  display: flex;
 }
