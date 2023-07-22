@@ -1,33 +1,49 @@
 export interface Message {
-  userSend?: boolean;
   text: string;
-  waitForChoice: boolean;
-  score?: number
+  isCorrectChoice: boolean;
+  score: number;
+  isClicked?: boolean;
 }
 
 export const sampleMessages: Message[] = [
   {
-    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing (show option)',
-    waitForChoice: true
+    text: '好話A',
+    isCorrectChoice: true,
+    score: 25
   },
   {
-    text: 'Nullam consequat ultricies dui, eget sollicitudin enim pellentesque eget.',
-    waitForChoice: false
+    text: '好話B',
+    isCorrectChoice: true,
+    score: 25
   },
   {
-    text: 'Fusce varius risus id libero tristique, eget euismod justo mattis. (show option)',
-    waitForChoice: true
+    text: '好話C',
+    isCorrectChoice: true,
+    score: 25
   },
   {
-    text: 'In hac habitasse platea dictumst. Quisque venenatis nunc id mi fringilla, ac consectetur lacus facilisis. ',
-    waitForChoice: false
+    text: '好話D',
+    isCorrectChoice: true,
+    score: 25
   },
   {
-    text: 'Curabitur in luctus arcu. Nunc fringilla odio nec tempor consequat. (show option)',
-    waitForChoice: true
+    text: '壞話A',
+    isCorrectChoice: false,
+    score: 0
   },
   {
-    text: 'Curabitur ullamcorper, ligula et aliquet tristique, massa velit aliquam urna, ac cursus nulla nisl sit amet nunc. (show option)',
-    waitForChoice: true
-  }
+    text: '壞話B',
+    isCorrectChoice: false,
+    score: 0
+  },
+  {
+    text: '壞話C',
+    isCorrectChoice: false,
+    score: 0
+  },
+  {
+    text: '壞話D',
+    isCorrectChoice: false,
+    score: 0
+  },
 ];

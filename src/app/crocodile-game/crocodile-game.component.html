@@ -1,7 +1,23 @@
-<div class="container">
-  <app-game-hp></app-game-hp>
-  <div class="scrollable-container">
-    <app-game-word></app-game-word>
+<div class="container" #container>
+  <div class="hp-container mt-3">
+    <div class="hp-img">
+      <img src="/assets/images/crocodile-game/hp-{{ hp }}.png">
+    </div>
   </div>
-  <app-game-choice></app-game-choice>
+  <div class="main">
+    <div class="crocodile">
+      <img src="/assets/images/crocodile-game/crocodile.png">
+    </div>
+    <ng-container *ngFor="let message of viewMsgs; let i=index;">
+      <div class="bubble" [ngClass]="'bubble' + (i+1)" (click)="bubbleClick(i)">
+        <div>{{ message.text }}</div>
+        <img src="/assets/images/crocodile-game/bubble{{i+1}}.png">
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="desc" [hidden]="isHidden">
+    <img src="/assets/images/crocodile-game/desc_bg.png">
+  </div>
 </div>
+

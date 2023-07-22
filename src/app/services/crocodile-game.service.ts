@@ -1,94 +1,76 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject, debounce, filter, fromEvent, map, takeUntil, tap, timer } from 'rxjs';
+import { BehaviorSubject, Subject, from, groupBy, mergeMap, take, toArray } from 'rxjs';
 import { Message, sampleMessages } from '../interfaces/message';
-import { Option } from '../interfaces/option';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CrocodileGameService {
-  private _newOptionEvent = new Subject<Option[]>();
-  private _messageSubject = new BehaviorSubject<Message>(sampleMessages[0]);
-  private _scoreSubject = new BehaviorSubject(100);
-  private _messageStoppingSubject = new BehaviorSubject<boolean>(false);
-  private _messages = sampleMessages;
+  private _viewMessageSubject = new Subject<Message[]>();
+  private _scoreSubject = new BehaviorSubject(0);
+  private _remainMessages = [ ...sampleMessages ];
+  private _viewMessages: Message[] = [];
 
   constructor() {
   }
 
-  public get OptioinEvent() {
-    return this._newOptionEvent;
-  }
-
   public get Messages() {
-    return this._messageSubject;
+    return this._viewMessageSubject;
   }
 
   public get Score() {
     return this._scoreSubject;
   }
 
-  setMessageTypingStatus(isTyping: boolean) {
-    this._messageStoppingSubject.next(isTyping);
-  }
+  // Fisher-Yates 洗牌算法
+  shuffleArray<T>(array: T[]): T[] {
+    const shuffledArray = [ ...array ];
+    let currentIndex = shuffledArray.length;
+    let temporaryValue: T;
+    let randomIndex: number;
 
-  pushNewOption(options: Option[]) {
-    this._newOptionEvent.next(options);
-  }
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
 
-  newOptionChoose(option: Option) {
-    const message: Message = {
-      userSend: true,
-      text: option.text,
-      waitForChoice: false,
-      score: option.score
+      temporaryValue = shuffledArray[currentIndex];
+      shuffledArray[currentIndex] = shuffledArray[randomIndex];
+      shuffledArray[randomIndex] = temporaryValue;
     }
 
-    this._newOptionEvent.next([]);
-    this._messageSubject.next(message);
-    timer(1000).subscribe(_ => {
-      // TODO: put correct message for this option, just choose randomly now
-      this._messageSubject.next(this.getRamdonMessage());
-      this.generateInitMessage();
-    });
-
-    this._scoreSubject.next(Math.max(Math.min(this._scoreSubject.getValue() + option.score, 100),0));
+    return shuffledArray;
   }
 
-  generateInitMessage() {
-    const needUserChoice$ = new Subject();
+  GetRandomInitMsg() {
+    this._remainMessages = this.shuffleArray(this._remainMessages);
 
-    fromEvent<PointerEvent>(document, 'pointerdown').pipe(
-      debounce(() => timer(300)),
-      map(x => this.getRamdonMessage()),
-      filter(_=> !this._messageStoppingSubject.getValue()),
-      takeUntil(needUserChoice$),
-    ).subscribe(msg => {
-      this._messageSubject.next(msg);
-      if(msg.waitForChoice) needUserChoice$.next(0);
+    from(this._remainMessages).pipe(
+      groupBy((msg: Message) => msg.isCorrectChoice),
+      mergeMap(group => group.pipe(take(2))),
+      toArray()
+    ).subscribe((result: Message[]) => {
+      const filteredMessages = this._remainMessages.filter(msg => !result.includes(msg));
+      this._viewMessageSubject.next(result);
+      this._viewMessages = result;
+      this._remainMessages = filteredMessages;
     });
   }
 
-  requestNextQuesion() {
-    timer(500).subscribe(_ => {
-      this._newOptionEvent
-      .next([{
-        text: "option1",
-        score: Math.round(-30 * Math.random())
-      },
-      {
-        text: "option2",
-        score: Math.round(-50 * Math.random())
-      },
-      {
-        text: "option3",
-        score: Math.round(60 * Math.random())
-      }])
-    });
-  }
+  messageCliked(idx: number) {
+    if(!this._viewMessages[idx].isClicked) {
+      const currentScore = this._scoreSubject.getValue();
+      const finalScore = Math.min(Math.max(currentScore + this._viewMessages[idx].score, 0), 100);
+      this._scoreSubject.next(finalScore);
+    }
 
-  getRamdonMessage() {
-    return this._messages[Math.min(Math.floor(Math.random()* 5), 5)];
-  }
+    this._viewMessages[idx].isClicked = true;
 
+    if(!this._viewMessages[idx].isCorrectChoice) {
+      this._remainMessages = this.shuffleArray(this._remainMessages);
+      const badMsgIdx = this._remainMessages.findIndex(x=>!x.isCorrectChoice);
+      const badMsg = this._remainMessages.splice(badMsgIdx, 1);
+      this._viewMessages[idx] = badMsg[0];
+      this._viewMessageSubject.next(this._viewMessages);
+    }
+  }
 }

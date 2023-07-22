@@ -1,35 +1,167 @@
 :host {
-  background: url("/assets/images/crocodile-game/crocodile.gif") no-repeat center center fixed;
-  display: block;
+  background: url("/assets/images/crocodile-game/crocodile_bg.png") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
   height: 100dvh;
   overflow: hidden;
+  display: block;
 }
 
 .container {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+img {
+  width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 
-.scrollable-container {
-  flex-grow: 1;
-  overflow: hidden;
+
+// 直
+@media (orientation: portrait) {
+  .hp-container {
+    position: relative;
+    width: 90%;
+
+    .hp-img {
+      position: absolute;
+      z-index: 2;
+    }
+  }
+
+  .main {
+    position: relative;
+    height: 55dvh;
+    width: 90%;
+
+    .crocodile {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 25%;
+    }
+
+    .bubble1{
+      position: absolute;
+      top: 30%;
+      right: -10px;
+      width: 40%;
+    }
+
+    .bubble2 {
+      position: absolute;
+      bottom: 30%;
+      right: -10px;
+      width: 40%;
+    }
+
+    .bubble3 {
+      position: absolute;
+      top: 30%;
+      left: -15px;
+      width: 40%;
+    }
+
+    .bubble4 {
+      position: absolute;
+      bottom: 30%;
+      left: 10px;
+      width: 40%;
+    }
+
+    .fixed {
+      pointer-events: none;
+    }
+
+    .bubble {
+      div {
+        position: absolute;
+        top: 10px;
+        left: 25px;
+      }
+    }
+  }
+
+  .desc {
+    width: 90%;
+  }
 }
 
-app-game-hp {
-  height: 60px;
+// 橫
+@media (orientation: landscape) {
+  .hp-container {
+    position: relative;
+    width: 75%;
+
+    .hp-img {
+      position: absolute;
+      z-index: 2;
+    }
+  }
+
+  .main {
+    position: relative;
+    height: 50dvh;
+    width: 80%;
+
+    .crocodile {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 15%;
+    }
+
+    .bubble1{
+      position: absolute;
+      top: 28%;
+      right: 0;
+      width: 40%;
+    }
+
+    .bubble2 {
+      position: absolute;
+      bottom: -50%;
+      right: 0;
+      width: 40%;
+    }
+
+    .bubble3 {
+      position: absolute;
+      top: 28%;
+      left: 0;
+      width: 40%;
+    }
+
+    .bubble4 {
+      position: absolute;
+      bottom: -50%;
+      left: 0;
+      width: 40%;
+    }
+
+    .fixed {
+      pointer-events: none;
+    }
+
+    .bubble {
+      div {
+        position: absolute;
+        top: 25px;
+        left: 35px;
+      }
+    }
+  }
+
+  .desc {
+    width: 90%;
+  }
 }
 
-app-game-choice {
-  height: 180px;
-  margin: 15px 0px 5px;
-}
-
-app-game-word {
-  height: 100%;
-  display: flex;
-}
