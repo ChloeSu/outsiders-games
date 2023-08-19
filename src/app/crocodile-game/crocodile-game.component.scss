@@ -87,10 +87,11 @@ img {
         left: 25px;
       }
     }
-  }
 
-  .desc {
-    width: 90%;
+    .desc {
+      position: absolute;
+      bottom: 0;
+    }
   }
 }
 
@@ -161,7 +162,8 @@ img {
   }
 
   .desc {
-    width: 90%;
+    position: absolute;
+    bottom: -100%;
   }
 }
 

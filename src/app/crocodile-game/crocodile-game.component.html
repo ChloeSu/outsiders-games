@@ -1,5 +1,5 @@
 <div class="container" #container>
-  <div class="hp-container mt-3">
+  <div class="hp-container mt-3" [hidden]="!isHidden">
     <div class="hp-img">
       <img src="/assets/images/crocodile-game/hp-{{ hp }}.png">
     </div>
@@ -14,10 +14,9 @@
         <img src="/assets/images/crocodile-game/bubble{{i+1}}.png">
       </div>
     </ng-container>
-  </div>
-
-  <div class="desc" [hidden]="isHidden">
-    <img src="/assets/images/crocodile-game/desc_bg.png">
+    <div class="desc" [hidden]="isHidden">
+      <img src="/assets/images/crocodile-game/desc_bg.png">
+    </div>
   </div>
 </div>
 

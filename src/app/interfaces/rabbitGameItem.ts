@@ -1,58 +1,29 @@
 export interface RabbitGameItem {
-  icon: string;
-  score: number;
-  position: { top: number; left: number };
+  img: string;
+  positiveImg: string;
+  negtiveImg: string;
+  showPositive?: boolean;
 }
 
-export const additionalItems: RabbitGameItem[] = (() => {
-  const radius = window.innerHeight < 775 ? 120 : 150; // 圓的半徑
-  const centerX = window.innerHeight < 775 ? 13500 : 15000; // 圓心的 x 座標
-  const centerY = window.innerHeight < 775 ? 18500 : 22500; // 圓心的 y 座標
-  const totalPoints = window.innerHeight < 775 ? 10 : 15; // 總點數
+export enum pageStages {
+  desc1 = 0,
+  desc2 = 1,
+  start = 2,
+  gaming = 3,
+  end = 4
+}
 
-  // position用法先保留
-  const IconScoreMap = [
-    { icon: "🍎", score: 10, position: { top: 100, left: 100 } },
-    { icon: "🍌", score: 20, position: { top: 90, left: 190 } },
-    { icon: "🍇", score: 45, position: { top: 130, left: 260 } },
-    { icon: "🍓", score: 32, position: { top: 100, left: 100 } },
-    { icon: "🍉", score: 18, position: { top: 100, left: 100 } },
-    { icon: "🥕", score: 48, position: { top: 100, left: 100 } },
-    { icon: "🍔", score: -5, position: { top: 100, left: 100 } },
-    { icon: "🍟", score: -3, position: { top: 100, left: 100 } },
-    { icon: "🍕", score: -14, position: { top: 100, left: 100 } },
-    { icon: "🌮", score: -16, position: { top: 100, left: 100 } },
-    { icon: "🍦", score: 37, position: { top: 100, left: 100 } },
-    { icon: "🍧", score: 46, position: { top: 100, left: 100 } },
-    { icon: "🍗", score: 39, position: { top: 100, left: 100 } },
-    { icon: "🍖", score: -6, position: { top: 100, left: 100 } },
-    { icon: "🥩", score: 8, position: { top: 100, left: 100 } },
-    { icon: "🥦", score: 15, position: { top: 100, left: 100 } },
-    { icon: "🌽", score: 27, position: { top: 100, left: 100 } },
-    { icon: "🥔", score: 4, position: { top: 100, left: 100 } },
-    { icon: "🍞", score: -3, position: { top: 100, left: 100 } },
-    { icon: "🧀", score: 6, position: { top: 100, left: 100 } },
-    { icon: "🥗", score: 5, position: { top: 100, left: 100 } },
-    { icon: "🍅", score: -3, position: { top: 100, left: 100 } },
-    { icon: "🍪", score: 2, position: { top: 100, left: 100 } },
-    { icon: "🍰", score: 8, position: { top: 100, left: 100 } },
-  ];
+export const stageImgMap = [
+  { stage: pageStages.desc1 , img: "/assets/images/rabbit-game/desc1.png" },
+  { stage: pageStages.desc2 , img: "/assets/images/rabbit-game/desc2.png" },
+  { stage: pageStages.start , img: "/assets/images/rabbit-game/start.png" },
+  { stage: pageStages.gaming , img: "/assets/images/rabbit-game/rabbit.png" },
+  { stage: pageStages.end , img: "/assets/images/rabbit-game/end.png" },
+];
 
-  const points = [];
-
-  for (let i = 0; i < totalPoints; i++) {
-    const angle = (2 * Math.PI * i) / totalPoints; // 角度 = (2π * i) / 總點數
-    const x = Math.round(centerX + radius * Math.cos(angle) * 100) / 100;
-    const y = Math.round(centerY + radius * Math.sin(angle) * 100) / 100;
-    points.push({ x, y });
-  }
-
-  return points.map((point, index) => {
-    return {
-      icon: IconScoreMap[index].icon,
-      score: IconScoreMap[index].score,
-      position: { top: point.y, left: point.x }
-    };
-  });
-})();
+export const items: RabbitGameItem[] = Array.from({ length: 4 }, (_, index) => ({
+  img: `/assets/images/rabbit-game/${index + 1}.png`,
+  negtiveImg: `/assets/images/rabbit-game/${index + 1}-1.png`,
+  positiveImg: `/assets/images/rabbit-game/${index + 1}-2.png`
+}));
 

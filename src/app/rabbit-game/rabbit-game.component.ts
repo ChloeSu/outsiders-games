@@ -1,39 +1,84 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { CdkDragEnd } from '@angular/cdk/drag-drop';
-import { RabbitGameItem, additionalItems } from '../interfaces/rabbitGameItem';
+import { RabbitGameItem, items, pageStages, stageImgMap } from '../interfaces/rabbitGameItem';
 
 @Component({
   selector: 'app-rabbit-game',
   templateUrl: './rabbit-game.component.html',
   styleUrls: ['./rabbit-game.component.scss']
 })
+
+
 export class RabbitGameComponent {
   rabbitHealth: number = 0;
-  items: RabbitGameItem[] = additionalItems;
+  items: RabbitGameItem[] = items;
+  stageImgMap = stageImgMap;
+  pageStages = pageStages;
+  currentStage = pageStages.desc1;
+  showDescImg: string = "";
+  okDefaultPos: { position: { x: number, y: number}} = { position: { x:0, y:0}};
+  movingOkPos: { position: { x: number, y: number}} = { position: { x:0, y:0}};
 
-  getRabbitImageSrc(): string {
-    return `/assets/images/rabbit-game/${Math.floor(this.rabbitHealth / 20)}.jpg`;
+  @HostListener('window:orientationchange', ['$event'])
+  onOrientationChange(event: any) {
+    window.setTimeout(()=> this.setDefaultPos(), 600);
   }
 
-  onItemDragEnd(event: CdkDragEnd, item: RabbitGameItem): void {
-    const rabbitElement = document.getElementById('rabbit-container');
-    if (rabbitElement) {
-      const rabbitRect = rabbitElement.getBoundingClientRect();
-      const itemRect = event.source.getRootElement().getBoundingClientRect();
+  ngOnInit() {
+    this.setDefaultPos();
+  }
 
-      if (
-        itemRect.top >= rabbitRect.top &&
-        itemRect.bottom <= rabbitRect.bottom &&
-        itemRect.left >= rabbitRect.left &&
-        itemRect.right <= rabbitRect.right
-      ) {
-        this.updateRabbitHealth(item.score);
-        this.items = this.items.filter(i => i !== item);
-      }
+  setDefaultPos() {
+    // portrait
+    let initX = document.body.clientWidth* 20.0 / 100.0;
+    let initY = document.body.clientHeight * 38.0 / 100.0;
+
+    // landscape
+    if(document.body.clientWidth > document.body.clientHeight) {
+      initX = document.body.clientWidth* 15.0 / 100.0;
+      initY = document.body.clientHeight * 35.0 / 100.0;
+    }
+    this.okDefaultPos = { position: { x: initX, y: initY}};
+    this.movingOkPos = { position: { x: initX, y: initY}};
+  }
+
+  changeStage() {
+    this.currentStage++;
+  }
+
+  itemClick(item: RabbitGameItem) {
+    if(!item.showPositive) {
+      this.showDescImg = item.negtiveImg;
     }
   }
 
-  updateRabbitHealth(score: number): void {
-    this.rabbitHealth = Math.max(Math.min(this.rabbitHealth + score, 100),0);
+  onItemDragEnd(event: CdkDragEnd): void {
+    // get all items DomRec
+    for(let i=1; i <=4; i++) {
+      let dom = document.getElementsByClassName(`item${i}`)[0].getBoundingClientRect();
+      if (dom) {
+        const itemRect = event.source.getRootElement().getBoundingClientRect();
+
+        if (
+          itemRect.top >= dom.top &&
+          itemRect.bottom <= dom.bottom &&
+          itemRect.left >= dom.left &&
+          itemRect.right <= dom.right &&
+          !this.items[i-1].showPositive
+        ) {
+          this.showDescImg = this.items[i-1].positiveImg;
+          this.items[i-1].showPositive = true;
+
+          this.movingOkPos.position = {
+            x: this.okDefaultPos.position.x + 0.001,
+            y: this.okDefaultPos.position.y + 0.001
+          };
+        }
+      }
+    }
+
+    if(this.items.every(x => x.showPositive)) {
+      window.setTimeout(() => this.currentStage++, 1000);
+    }
   }
 }

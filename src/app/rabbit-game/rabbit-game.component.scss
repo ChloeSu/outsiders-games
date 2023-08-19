@@ -1,6 +1,11 @@
 :host {
-  margin: auto;
-  width: 90%;
+  background: url("/assets/images/rabbit-game/bg.png") repeat-y fixed;
+  -webkit-background-size: 100% auto;
+  -moz-background-size: 100% auto;
+  -o-background-size: 100% auto;
+  background-size: 100% auto;
+  height: 100dvh;
+  overflow: hidden;
   display: block;
 }
 
@@ -10,83 +15,130 @@
   margin: 0 auto;
 }
 
-.rabbit-container {
-  position: relative;
-  width: 200px;
-  height: 200px;
-  margin: 0 auto;
-  overflow: hidden;
-  border-radius: 50%;
-  background-color: #fff;
-  margin-top: 100px;
-}
-
 .rabbit-image {
   width: 100%;
-  height: 100%;
   object-fit: cover;
 }
 
-.item-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.item {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.8em;
-  height: 1.8em;
-  font-size: 2em;
-  border-radius: 50%;
-  background-color: yellow;
-  cursor: move;
-}
-
-.health-bar {
-  width: 75%;
-  height: 20px;
-  background-color: #ccc;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.health {
-  height: 100%;
-  background-color: #0f0;
-  transition: width 1s linear;
-}
-
-.custom-img {
-  width: 55%;
-}
-
 .stage-desc {
-  margin-top: 100px;
-
-  label {
-    line-height: 3rem;
-  }
+  height: 100dvh;
 }
 
-@media (max-height: 775px) {
-  .rabbit-container {
-    width: 120px;
-    height: 120px;
-  }
+// 直
+@media (orientation: portrait) {
+  .main {
+    position: relative;
+    height: 100dvh;
+    width: 100%;
 
-  .stage-desc {
-    margin-top: 75px;
+    .sentence {
+      width: 80% !important;
+      left: 10%;
+      top: 3%;
+      margin-top: 30px;
+    }
 
-    label {
-      line-height: 3rem;
+    .rabbit-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 35%;
+    }
+
+    .item {
+      position: absolute;
+      width: 28%;
+
+      img {
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .item1{
+      top: 55%;
+      left: 4%;
+    }
+
+    .item2 {
+      top: 50%;
+      right: 8%;
+    }
+
+    .item3 {
+      top: 30%;
+      right: 5%;
+    }
+
+    .item4 {
+      top: 30%;
+      left: 8%;
+    }
+
+    .OK {
+      width: 20%;
     }
   }
 }
+
+// 橫
+@media (orientation: landscape) {
+  .main {
+    position: relative;
+    height: 100dvh;
+    width: 100%;
+
+    .sentence {
+      width: 70% !important;
+      left: 15%;
+      top: 3%;
+    }
+
+    .rabbit-container {
+      position: absolute;
+      top: 60%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 13%;
+    }
+
+    .item {
+      position: absolute;
+      width: 12%;
+
+      img {
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .item1{
+      top: 55%;
+      left: 15%;
+    }
+
+    .item2 {
+      top: 60%;
+      right: 28%;
+    }
+
+    .item3 {
+      top: 28%;
+      right: 18%;
+    }
+
+    .item4 {
+      top: 25%;
+      left: 28%;
+    }
+
+    .OK {
+      width: 6%;
+    }
+  }
+}
+
+
 
 

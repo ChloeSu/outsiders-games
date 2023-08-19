@@ -1,35 +1,30 @@
 <div class="game-container">
-  <!-- 好感度 -->
-  <div class="d-flex ml-3 mr-3 p-3 justify-content-between align-items-center">
-    <label class="ml-3">好感度:</label>
-    <div class="health-bar">
-      <div class="health" [style.width.%]="rabbitHealth"></div>
-    </div>
+  <!-- show description image if not in gaming stage  -->
+  <div *ngIf="currentStage != pageStages.gaming" (click)="changeStage()" class="stage-desc">
+    <img [src]="stageImgMap[currentStage].img" class="rabbit-image" alt="Rabbit">
   </div>
-  <div id="rabbit-container" class="rabbit-container">
-    <img [src]="getRabbitImageSrc()" class="rabbit-image" alt="Rabbit">
-  </div>
-  <div class="item-container">
-    <div class="item" *ngFor="let item of items"
-      cdkDrag
-      (cdkDragEnded)="onItemDragEnd($event, item)"
-      [style.top.px]="item.position.top"
-      [style.left.px]="item.position.left">
-      {{ item.icon }}
-    </div>
-  </div>
-</div>
 
-<div class="container stage-desc">
-  <div class="row">
-    <div class="col-12 col-md-6 col-lg-4 d-flex" *ngFor="let i of [1, 2, 3, 4, 5]">
-      <div class="col-4">
-        <img src="/assets/images/rabbit-game/{{ i }}.jpg" class="custom-img" alt="Image {{ i }}">
+  <div *ngIf="currentStage == pageStages.gaming">
+    <div class="main">
+      <div class="item sentence" *ngIf="showDescImg">
+        <img src="{{ showDescImg }}">
       </div>
-      <div class="col-8">
-        <label>Stage {{ i }} 健康度:{{ i * 20}}</label>
+      <div id="rabbit-container" class="rabbit-container">
+        <img [src]="stageImgMap[currentStage].img" class="rabbit-image" alt="Rabbit">
+      </div>
+      <ng-container *ngFor="let item of items; let i=index;">
+        <div class="item" (click)="itemClick(item)" [ngClass]="'item' + (i+1)" >
+          <img src="{{ item.showPositive ? '/assets/images/rabbit-game/final.png':  item.img }}">
+        </div>
+      </ng-container>
+      <div class="OK item" #OK
+          cdkDrag
+          (cdkDragEnded)="onItemDragEnd($event)"
+          [style.top.px]="movingOkPos.position.y"
+          [style.left.px]="movingOkPos.position.x"
+          [cdkDragFreeDragPosition]="movingOkPos.position">
+        <img src="/assets/images/rabbit-game/Ok.png">
       </div>
     </div>
   </div>
 </div>
-
