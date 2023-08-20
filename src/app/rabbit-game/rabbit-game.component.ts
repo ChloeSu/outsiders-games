@@ -35,8 +35,8 @@ export class RabbitGameComponent {
 
     // landscape
     if(document.body.clientWidth > document.body.clientHeight) {
-      initX = document.body.clientWidth* 15.0 / 100.0;
-      initY = document.body.clientHeight * 35.0 / 100.0;
+      initX = document.body.clientWidth* 5.0 / 100.0;
+      initY = document.body.clientHeight * 15.0 / 100.0;
     }
     this.okDefaultPos = { position: { x: initX, y: initY}};
     this.movingOkPos = { position: { x: initX, y: initY}};
@@ -53,6 +53,8 @@ export class RabbitGameComponent {
   }
 
   onItemDragEnd(event: CdkDragEnd): void {
+    let offset = 20;
+
     // get all items DomRec
     for(let i=1; i <=4; i++) {
       let dom = document.getElementsByClassName(`item${i}`)[0].getBoundingClientRect();
@@ -60,10 +62,10 @@ export class RabbitGameComponent {
         const itemRect = event.source.getRootElement().getBoundingClientRect();
 
         if (
-          itemRect.top >= dom.top &&
-          itemRect.bottom <= dom.bottom &&
-          itemRect.left >= dom.left &&
-          itemRect.right <= dom.right &&
+          itemRect.top >= (dom.top - offset) &&
+          itemRect.bottom <= (dom.bottom + offset) &&
+          itemRect.left >= (dom.left - offset)&&
+          itemRect.right <= (dom.right + offset) &&
           !this.items[i-1].showPositive
         ) {
           this.showDescImg = this.items[i-1].positiveImg;
@@ -78,7 +80,7 @@ export class RabbitGameComponent {
     }
 
     if(this.items.every(x => x.showPositive)) {
-      window.setTimeout(() => this.currentStage++, 1000);
+      window.setTimeout(() => this.currentStage++, 600);
     }
   }
 }

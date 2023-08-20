@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject, from, groupBy, mergeMap, take, toArray } from 'rxjs';
-import { Message, sampleMessages } from '../interfaces/message';
+import { crocodileGameItem, sampleMessages } from '../interfaces/crocodileGameItem';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CrocodileGameService {
-  private _viewMessageSubject = new Subject<Message[]>();
+  private _viewMessageSubject = new BehaviorSubject<crocodileGameItem[]>(sampleMessages);
   private _scoreSubject = new BehaviorSubject(0);
   private _remainMessages = [ ...sampleMessages ];
-  private _viewMessages: Message[] = [];
+  private _viewMessages: crocodileGameItem[] = [];
 
   constructor() {
   }
@@ -45,10 +45,10 @@ export class CrocodileGameService {
     this._remainMessages = this.shuffleArray(this._remainMessages);
 
     from(this._remainMessages).pipe(
-      groupBy((msg: Message) => msg.isCorrectChoice),
+      groupBy((msg: crocodileGameItem) => msg.isCorrectChoice),
       mergeMap(group => group.pipe(take(2))),
       toArray()
-    ).subscribe((result: Message[]) => {
+    ).subscribe((result: crocodileGameItem[]) => {
       const filteredMessages = this._remainMessages.filter(msg => !result.includes(msg));
       this._viewMessageSubject.next(result);
       this._viewMessages = result;
@@ -57,20 +57,20 @@ export class CrocodileGameService {
   }
 
   messageCliked(idx: number) {
-    if(!this._viewMessages[idx].isClicked) {
+    if(!sampleMessages[idx].isClicked) {
       const currentScore = this._scoreSubject.getValue();
-      const finalScore = Math.min(Math.max(currentScore + this._viewMessages[idx].score, 0), 100);
+      const finalScore = Math.min(Math.max(currentScore +sampleMessages[idx].score, 0), 100);
       this._scoreSubject.next(finalScore);
     }
 
-    this._viewMessages[idx].isClicked = true;
+    sampleMessages[idx].isClicked = true;
 
-    if(!this._viewMessages[idx].isCorrectChoice) {
-      this._remainMessages = this.shuffleArray(this._remainMessages);
-      const badMsgIdx = this._remainMessages.findIndex(x=>!x.isCorrectChoice);
-      const badMsg = this._remainMessages.splice(badMsgIdx, 1);
-      this._viewMessages[idx] = badMsg[0];
-      this._viewMessageSubject.next(this._viewMessages);
-    }
+    // if(!this._viewMessages[idx].isCorrectChoice) {
+    //   this._remainMessages = this.shuffleArray(this._remainMessages);
+    //   const badMsgIdx = this._remainMessages.findIndex(x=>!x.isCorrectChoice);
+    //   const badMsg = this._remainMessages.splice(badMsgIdx, 1);
+    //   this._viewMessages[idx] = badMsg[0];
+    //   this._viewMessageSubject.next(this._viewMessages);
+    // }
   }
 }

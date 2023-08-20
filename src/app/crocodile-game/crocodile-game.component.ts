@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CrocodileGameService } from '../services/crocodile-game.service';
-import { Message } from '../interfaces/message';
+import { crocodileGameItem, pageStages, stageImgMap } from '../interfaces/crocodileGameItem';
 
 @Component({
   selector: 'app-crocodile-game',
@@ -8,10 +8,12 @@ import { Message } from '../interfaces/message';
   styleUrls: ['./crocodile-game.component.scss']
 })
 export class CrocodileGameComponent {
-  isHidden = true;
   hp = 0;
-  viewMsgs: Message[] = [];
-  allMsgs: Message[] = [];
+  viewMsgs: crocodileGameItem[] = [];
+  allMsgs: crocodileGameItem[] = [];
+  stageImgMap = stageImgMap;
+  pageStages = pageStages;
+  currentStage = pageStages.desc1;
 
   constructor(
     private gameSrv: CrocodileGameService
@@ -25,9 +27,13 @@ export class CrocodileGameComponent {
 
     this.gameSrv.Score.subscribe(score => {
       this.hp = score;
-      this.isHidden = score < 100;
-    })
-    this.gameSrv.GetRandomInitMsg();
+      // passed
+      if(this.hp == 100 ) window.setTimeout(() => this.currentStage++, 600);
+    });
+  }
+
+  changeStage() {
+    this.currentStage++;
   }
 
   bubbleClick(idx: number) {

@@ -1,23 +1,29 @@
-<!-- 好感度 -->
-<div class="d-flex ml-3 mr-3 p-3 justify-content-between align-items-center">
-  <label class="ml-3">好感度:</label>
-  <div class="health-bar">
-    <div class="health" [style.width.%]="score"></div>
+<div class="container" #container>
+  <!-- show description image if not in gaming stage  -->
+  <div *ngIf="currentStage != pageStages.gaming" (click)="changeStage()" class="stage-desc">
+    <img [src]="stageImgMap[currentStage].img" class="cow-image" alt="Cow">
+  </div>
+
+  <div *ngIf="currentStage == pageStages.gaming" (click)="toggleNeedleAnimation()">
+    <div class="hp-container mt-3">
+      <div class="hp-img ">
+        <img src="/assets/images/cow-game/hp-{{ score }}.png" class="cow-image">
+      </div>
+    </div>
+    <div class="main">
+      <div id="cow-container" class="cow-container">
+        <img src="/assets/images/cow-game/{{showAngryCow ? 'angry-': ''}}cow.png" class="cow-image" alt="Cow">
+      </div>
+      <div class="item" >
+        <img [src]="showedImgPath">
+      </div>
+    </div>
+    <div class="needle-container">
+      <div class="needle" [style.left.%]="needlePosition"></div>
+    </div>
   </div>
 </div>
 
-<div class="mt-5 d-flex justify-content-between align-items-center flex-column">
-  <!-- 說明 -->
-  <label class="ml-3">{{ getHintText() }}</label>
-  <!-- 指針 -->
-  <div class="container mb-3">
-    <div class="middle-section"></div>
-    <div class="needle" [style.left.%]="needlePosition"></div>
-  </div>
-
-  <!-- 對應牛 -->
-  <img [src]="getCowImageSrc()" class="rounded float-right img-fluid" (click)="toggleNeedleAnimation()">
-</div>
 
 
 

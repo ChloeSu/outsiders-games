@@ -1,76 +1,137 @@
 :host {
-  margin: auto;
-  width: 90%;
+  background: url("/assets/images/cow-game/bg.png") repeat-y fixed;
+  -webkit-background-size: 100% auto;
+  -moz-background-size: 100% auto;
+  -o-background-size: 100% auto;
+  background-size: 100% auto;
+  height: 100dvh;
+  overflow: hidden;
   display: block;
 }
 
-.container {
+.game-container {
   position: relative;
-  width: 90%;
-  height: 40px;
-  background-color: #eaeaea;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.cow-image {
+  width: 100%;
+  object-fit: cover;
+}
+
+.stage-desc {
+  height: 100dvh;
+}
+
+
+.needle-container {
+  position: relative;
   margin: auto;
-  border: 2px solid #eaeaea;
-  border-radius: 50px;
+  width: 60%;
+  height: 40px;
+  background-image: url("/assets/images/cow-game/needle-container.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
-.container::before,
-.container::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  height: 100%;
-  background-color: #FF0000;
-}
-
-.container::before {
-  left: 0;
-  width: 20%;
-  border-top-left-radius: 50px;
-  border-bottom-left-radius: 50px;
-}
-
-.container::after {
-  right: 0;
-  width: 20%;
-  border-top-right-radius: 50px;
-  border-bottom-right-radius: 50px;
-}
-
-.middle-section {
-  height: 100%;
-  position: relative;
-  left: calc(20% - 10px);
-  width: calc(60% + 20px); // 100% - 2(20% - 10px)
-  background-color: #00FF00;
-}
 
 .needle {
   position: absolute;
   top: 50%;
   left: 0;
   transform: translate(-50%, -50%);
-  width: 5px;
-  height: 40px;
-  background-color: #aeaeae;
+  width: 45px;
+  height: 45px;
+  background-image: url("/assets/images/cow-game/needle.png");
+  background-size: cover;
   transition: left 0.1s;
   z-index: 999;
 }
 
-button {
-  margin-top: 20px;
+// 直
+@media (orientation: portrait) {
+  .hp-container {
+    position: relative;
+    margin: auto;
+    width: 60%;
+
+    .hp-img {
+      position: absolute;
+      z-index: 2;
+    }
+  }
+
+  .main {
+    position: relative;
+    height: 20dvh;
+    width: 100%;
+
+    .cow-container {
+      position: absolute;
+      top: 60%;
+      left: 25%;
+      transform: translate(-50%, -50%);
+      width: 12%;
+    }
+
+    .item {
+      position: absolute;
+      width: 50%;
+      top: 22%;
+      right: 15%;
+
+      img {
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  .needle-container {
+    width: 60%;
+    height: 15px;
+  }
 }
 
-.health-bar {
-  width: 75%;
-  height: 20px;
-  background-color: #ccc;
-  border-radius: 10px;
-  overflow: hidden;
+// 橫
+@media (orientation: landscape) {
+  .hp-container {
+    position: relative;
+    margin: auto;
+    width: 60%;
+
+    .hp-img {
+      position: absolute;
+      z-index: 2;
+    }
+  }
+
+  .main {
+    position: relative;
+    height: 80dvh;
+    width: 100%;
+
+    .cow-container {
+      position: absolute;
+      top: 60%;
+      left: 25%;
+      transform: translate(-50%, -50%);
+      width: 12%;
+    }
+
+    .item {
+      position: absolute;
+      width: 50%;
+      top: 22%;
+      right: 15%;
+
+      img {
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+  }
 }
 
-.health {
-  height: 100%;
-  background-color: #ff0000;
-  transition: width 1s linear;
-}
