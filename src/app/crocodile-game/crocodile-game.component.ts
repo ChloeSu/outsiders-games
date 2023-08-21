@@ -33,7 +33,9 @@ export class CrocodileGameComponent {
   }
 
   changeStage() {
-    this.currentStage++;
+    if(this.currentStage != pageStages.end) {
+      this.currentStage++;
+    }
   }
 
   bubbleClick(idx: number) {

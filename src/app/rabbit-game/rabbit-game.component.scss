@@ -24,123 +24,70 @@
   height: 100dvh;
 }
 
+.main {
+  position: relative;
+  height: 100dvh;
+  width: 100%;
+
+  .sentence {
+    width: 70% !important;
+    left: 15%;
+    top: 3%;
+  }
+
+  .rabbit-container {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 13%;
+  }
+
+  .item {
+    position: absolute;
+    width: 12%;
+
+    img {
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .item1{
+    top: 55%;
+    left: 15%;
+  }
+
+  .item2 {
+    top: 60%;
+    right: 28%;
+  }
+
+  .item3 {
+    top: 28%;
+    right: 18%;
+  }
+
+  .item4 {
+    top: 25%;
+    left: 28%;
+  }
+
+  .OK {
+    width: 10%;
+  }
+}
+
 // 直
 @media (orientation: portrait) {
   .main {
-    position: relative;
-    height: 100dvh;
-    width: 100%;
-
-    .sentence {
-      width: 80% !important;
-      left: 10%;
-      top: 3%;
-      margin-top: 30px;
-    }
-
-    .rabbit-container {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 35%;
-    }
-
-    .item {
-      position: absolute;
-      width: 28%;
-
-      img {
-        width: 100%;
-        object-fit: cover;
-      }
-    }
-
-    .item1{
-      top: 55%;
-      left: 4%;
-    }
-
-    .item2 {
-      top: 50%;
-      right: 8%;
-    }
-
-    .item3 {
-      top: 30%;
-      right: 5%;
-    }
-
-    .item4 {
-      top: 30%;
-      left: 8%;
-    }
-
-    .OK {
-      width: 20%;
-    }
+    height: 35dvh;
   }
 }
 
 // 橫
 @media (orientation: landscape) {
   .main {
-    position: relative;
     height: 100dvh;
-    width: 100%;
-
-    .sentence {
-      width: 70% !important;
-      left: 15%;
-      top: 3%;
-    }
-
-    .rabbit-container {
-      position: absolute;
-      top: 60%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 13%;
-    }
-
-    .item {
-      position: absolute;
-      width: 12%;
-
-      img {
-        width: 100%;
-        object-fit: cover;
-      }
-    }
-
-    .item1{
-      top: 55%;
-      left: 15%;
-    }
-
-    .item2 {
-      top: 60%;
-      right: 28%;
-    }
-
-    .item3 {
-      top: 28%;
-      right: 18%;
-    }
-
-    .item4 {
-      top: 25%;
-      left: 28%;
-    }
-
-    .OK {
-      width: 10%;
-    }
-  }
-
-  .stage-desc {
-    width: 75%;
-    position: relative;
-    margin: auto;
   }
 }

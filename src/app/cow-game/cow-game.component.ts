@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, delay, tap } from 'rxjs';
 import { pageStages, stageImgMap } from '../interfaces/cowGameItem';
 
 @Component({
@@ -30,7 +30,8 @@ export class CowGameComponent implements OnInit {
 
 
   ngAfterViewInit() {
-    this.buttonClickEvent$.subscribe(_=> {
+    this.buttonClickEvent$.pipe(
+      tap(_=>{
       // 在藍色區點擊會+25的好感，在紅色區點會-25，最低只會到0
       if(this.isNeedleInGreenZone()) {
         this.score+=25;
@@ -46,7 +47,10 @@ export class CowGameComponent implements OnInit {
         this.badImgIdx++;
         this.showAngryCow = true;
       }
-    })
+      }),
+      delay(1000),
+      tap(_=> this.toggleNeedleAnimation())
+    ).subscribe();
   }
 
   ngOnDestroy() {
@@ -58,7 +62,9 @@ export class CowGameComponent implements OnInit {
   }
 
   changeStage() {
-    this.currentStage++;
+    if(this.currentStage != pageStages.end) {
+      this.currentStage++;
+    }
   }
 
   toggleNeedleAnimation() {

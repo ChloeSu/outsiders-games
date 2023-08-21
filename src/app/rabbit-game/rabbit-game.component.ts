@@ -30,8 +30,8 @@ export class RabbitGameComponent {
 
   setDefaultPos() {
     // portrait
-    let initX = document.body.clientWidth* 20.0 / 100.0;
-    let initY = document.body.clientHeight * 38.0 / 100.0;
+    let initX = document.body.clientWidth* 5.0 / 100.0;
+    let initY = document.body.clientHeight * 5.0 / 100.0;
 
     // landscape
     if(document.body.clientWidth > document.body.clientHeight) {
@@ -43,7 +43,9 @@ export class RabbitGameComponent {
   }
 
   changeStage() {
-    this.currentStage++;
+    if(this.currentStage != pageStages.end) {
+      this.currentStage++;
+    }
   }
 
   itemClick(item: RabbitGameItem) {
