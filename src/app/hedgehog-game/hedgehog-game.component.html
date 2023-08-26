@@ -1,0 +1,31 @@
+<div class="container" #container>
+  <!-- show description image if not in gaming stage  -->
+  <div *ngIf="currentStage != pageStages.gaming" (click)="changeStage()" class="stage-desc">
+    <img [src]="stageImgMap[currentStage].img" class="hedgehog-image" alt="hedgehog">
+  </div>
+  <div *ngIf="currentStage == pageStages.gaming">
+    <div class="hp-container mt-1">
+      <div class="hp-img">
+        <img src="/assets/images/hedgehog-game/hp-{{ hp }}.png">
+      </div>
+    </div>
+    <div class="main">
+      <div class="item sentence">
+        <img src="{{ items[currentItem].desc }}">
+      </div>
+      <div id="hedgehog-container" class="hedgehog-container">
+        <img [src]="stageImgMap[currentStage].img" class="hedgehog-image" alt="Rabbit">
+      </div>
+      <ng-container *ngFor="let item of items; let i=index;" >
+        <div class="item"
+            [ngClass]="'item' + (i)"
+            *ngIf="!item.isHidden"
+            cdkDrag
+            (cdkDragEnded)="onItemDragEnd($event, i)">
+          <img src="{{ item.item }}">
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+

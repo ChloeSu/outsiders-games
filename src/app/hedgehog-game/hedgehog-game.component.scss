@@ -1,0 +1,123 @@
+:host {
+  background: url("/assets/images/hedgehog-game/bg.png") repeat-y fixed;
+  -webkit-background-size: 100% auto;
+  -moz-background-size: 100% auto;
+  -o-background-size: 100% auto;
+  background-size: 100% auto;
+  height: 100dvh;
+  overflow: hidden;
+  display: block;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hedgehog-container {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 25%;
+}
+
+.hedgehog-image {
+  width: 100%;
+  object-fit: cover;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.main {
+  position: relative;
+
+  .sentence {
+    width: 80% !important;
+    left: 10%;
+    top: 12%;
+  }
+
+  .hedgehog {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 15%;
+  }
+
+  .item1{
+    top: 39%;
+    left: 9%;
+  }
+
+  .item2 {
+    top: 62%;
+    left: 20%;
+  }
+
+  .item3 {
+    top: 40%;
+    right: 20%;
+  }
+
+  .item4 {
+    top: 65%;
+    right: 10%;
+  }
+
+  .item {
+    position: absolute;
+    width: 12%;
+  }
+}
+
+.hp-container {
+  position: relative;
+  margin: auto;
+
+  .hp-img {
+    position: absolute;
+    z-index: 2;
+  }
+}
+
+
+// 直
+@media (orientation: portrait) {
+  .hp-container {
+    width: 65%;
+  }
+
+  .main {
+    height: 35dvh;
+    width: 100dvw;
+
+    .sentence {
+      top: 15%;
+    }
+  }
+}
+
+// 橫
+@media (orientation: landscape) {
+  .hp-container {
+    width: 60%;
+  }
+
+  .main {
+    height: 100dvh;
+    width: 80dvw;
+
+    .hedgehog-container {
+      width: 20%;
+      top: 65%;
+    }
+  }
+}

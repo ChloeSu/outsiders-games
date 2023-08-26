@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
 import { CowGameComponent } from './cow-game/cow-game.component';
 import { RabbitGameComponent } from './rabbit-game/rabbit-game.component';
+import { HedgehogGameComponent } from './hedgehog-game/hedgehog-game.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { RabbitGameComponent } from './rabbit-game/rabbit-game.component';
     CrocodileGameComponent,
     HomeComponent,
     CowGameComponent,
-    RabbitGameComponent
+    RabbitGameComponent,
+    HedgehogGameComponent
   ],
   imports: [
     BrowserModule,
