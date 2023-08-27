@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { CowGameComponent } from './cow-game/cow-game.component';
 import { RabbitGameComponent } from './rabbit-game/rabbit-game.component';
 import { HedgehogGameComponent } from './hedgehog-game/hedgehog-game.component';
+import { MeerkatGameComponent } from './meerkat-game/meerkat-game.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { HedgehogGameComponent } from './hedgehog-game/hedgehog-game.component';
     HomeComponent,
     CowGameComponent,
     RabbitGameComponent,
-    HedgehogGameComponent
+    HedgehogGameComponent,
+    MeerkatGameComponent
   ],
   imports: [
     BrowserModule,

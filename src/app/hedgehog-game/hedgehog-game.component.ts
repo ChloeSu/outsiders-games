@@ -30,16 +30,16 @@ export class HedgehogGameComponent {
   }
 
   onItemDragEnd(event: CdkDragEnd, i: number): void {
-    const rabbitElement = document.getElementById('hedgehog-container');
-    if (rabbitElement) {
-      const rabbitRect = rabbitElement.getBoundingClientRect();
+    const element = document.getElementById('hedgehog-container');
+    if (element) {
+      const rect = element.getBoundingClientRect();
       const itemRect = event.source.getRootElement().getBoundingClientRect();
 
       if (
-        itemRect.top >= rabbitRect.top &&
-        itemRect.bottom <= rabbitRect.bottom &&
-        itemRect.left >= rabbitRect.left &&
-        itemRect.right <= rabbitRect.right &&
+        itemRect.top >= rect.top &&
+        itemRect.bottom <= rect.bottom &&
+        itemRect.left >= rect.left &&
+        itemRect.right <= rect.right &&
         !items[i].isHidden
       ) {
         this.hp +=25;

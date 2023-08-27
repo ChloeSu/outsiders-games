@@ -1,0 +1,27 @@
+<div class="container" #container>
+  <div class="main">
+    <!-- show description image if not in gaming stage  -->
+    <div *ngIf="currentStage != pageStages.gaming" (click)="changeStage()" class="meerkat-container">
+      <img [src]="stageImgMap[currentStage].img" class="meerkat-image" alt="meerkat">
+    </div>
+    <div *ngIf="currentStage == pageStages.gaming">
+      <div id="meerkat-container" class="meerkat-container">
+        <img [src]="stageImgMap[currentStage].img" class="meerkat-image" alt="meerkat">
+      </div>
+      <ng-container *ngFor="let item of items; let i=index;" >
+        <div class="item" [ngClass]="'pos' + (i)" [attr.id]="'pos' + i">
+        </div>
+      </ng-container>
+      <ng-container *ngFor="let item of items; let i=index;" >
+        <div class="item"
+            [ngClass]="'item' + (i+1)"
+            cdkDrag
+            [cdkDragDisabled]="item.isFixed"
+            (cdkDragEnded)="onItemDragEnd($event, i)">
+          <img src="{{ item.item }}">
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
