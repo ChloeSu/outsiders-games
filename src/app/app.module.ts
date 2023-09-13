@@ -12,6 +12,7 @@ import { CowGameComponent } from './cow-game/cow-game.component';
 import { RabbitGameComponent } from './rabbit-game/rabbit-game.component';
 import { HedgehogGameComponent } from './hedgehog-game/hedgehog-game.component';
 import { MeerkatGameComponent } from './meerkat-game/meerkat-game.component';
+import { SlothGameComponent } from './sloth-game/sloth-game.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { MeerkatGameComponent } from './meerkat-game/meerkat-game.component';
     CowGameComponent,
     RabbitGameComponent,
     HedgehogGameComponent,
-    MeerkatGameComponent
+    MeerkatGameComponent,
+    SlothGameComponent
   ],
   imports: [
     BrowserModule,

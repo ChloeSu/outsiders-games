@@ -1,0 +1,17 @@
+<div class="game-container">
+  <!-- show description image if not in gaming stage  -->
+  <div *ngIf="currentStage != pageStages.gaming" (click)="changeStage()" class="stage-desc">
+    <img [src]="stageImgMap[currentStage].img" class="sloth-image" alt="sloth">
+  </div>
+
+  <div *ngIf="currentStage == pageStages.gaming">
+    <div class="main">
+      <div class="sentence" *ngIf="showDescImg">
+        <img src="{{ showDescImg }}">
+      </div>
+      <div id="maze-container" class="maze-container">
+        <canvas id="canvas"></canvas>
+      </div>
+    </div>
+  </div>
+</div>

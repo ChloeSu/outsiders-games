@@ -1,0 +1,71 @@
+:host {
+  background: url("/assets/images/sloth-game/bg.png") repeat-y fixed;
+  -webkit-background-size: 100% auto;
+  -moz-background-size: 100% auto;
+  -o-background-size: 100% auto;
+  background-size: 100% auto;
+  height: 100dvh;
+  overflow: hidden;
+  display: block;
+}
+
+.game-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.sloth-image {
+  width: 100%;
+  object-fit: cover;
+}
+
+.stage-desc {
+  height: 100dvh;
+}
+
+.main {
+  position: relative;
+  height: 100dvh;
+  width: 100%;
+
+  .sentence {
+    position: absolute;
+    left: 10%;
+    top: 1%;
+    width: 80%;
+    height: 20dvh;
+
+    img {
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .maze-container {
+    position: absolute;
+    bottom: 0;
+    width: 80%;
+    height: 80dvh;
+    left: 10%;
+  }
+}
+
+// 直
+@media (orientation: portrait) {
+  .main {
+    height: 35dvh;
+  }
+}
+
+// 橫
+@media (orientation: landscape) {
+  .main {
+    height: 100dvh;
+  }
+
+  .sloth-image {
+    height: 100dvh;
+    object-fit: fill;
+  }
+}
