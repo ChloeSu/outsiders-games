@@ -56,13 +56,10 @@ export class SlothGameComponent {
       fabric.Image.fromURL('/assets/images/sloth-game/pillow.png', function(img) {
         img.scaleToHeight(55);
         img.scaleToWidth(55);
-        img.lockScalingX = true;
-        img.lockScalingY = true;
-        img.lockRotation = true;
+        img.set('selectable', false);
         img.hasControls = false;
         img.top = item.position.top;
         img.left = item.position.left;
-        img.cacheKey = `pillow-${index}`;
         canvas.add(img);
       });
     });

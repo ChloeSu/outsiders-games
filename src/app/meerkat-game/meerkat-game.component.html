@@ -6,6 +6,7 @@
     </div>
     <div *ngIf="currentStage == pageStages.gaming">
       <div id="meerkat-container" class="meerkat-container">
+        <img src="/assets/images/meerkat-game/desc.png" class="desc-image" alt="meerkat">
         <img [src]="stageImgMap[currentStage].img" class="meerkat-image" alt="meerkat">
       </div>
       <ng-container *ngFor="let item of items; let i=index;" >
@@ -18,7 +19,7 @@
             cdkDrag
             [cdkDragDisabled]="item.isFixed"
             (cdkDragEnded)="onItemDragEnd($event, i)">
-          <img src="{{ item.item }}">
+          <img class="material-image" src="{{ item.item }}">
         </div>
       </ng-container>
     </div>
