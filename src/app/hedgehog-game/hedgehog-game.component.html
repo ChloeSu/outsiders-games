@@ -1,7 +1,7 @@
-<div class="container" #container>
+<div class="game-container" #container>
   <!-- show description image if not in gaming stage  -->
   <div *ngIf="currentStage != pageStages.gaming" (click)="changeStage()" class="stage-desc">
-    <img [src]="stageImgMap[currentStage].img" class="hedgehog-image" alt="hedgehog">
+    <img [src]="stageImgMap[currentStage].img" class="desc-image" alt="hedgehog">
   </div>
   <div *ngIf="currentStage == pageStages.gaming">
     <div class="hp-container mt-1">

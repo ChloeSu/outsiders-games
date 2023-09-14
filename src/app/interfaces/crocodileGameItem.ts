@@ -3,6 +3,7 @@ export interface crocodileGameItem {
   isCorrectChoice: boolean;
   score: number;
   isClicked?: boolean;
+  clickedImgPath: string;
 }
 
 export enum pageStages {
@@ -22,5 +23,6 @@ export const stageImgMap = [
 export const sampleMessages: crocodileGameItem[] = Array.from({ length: 6 }, (_, index) => ({
   imgPath: `/assets/images/crocodile-game/bubble${index + 1}.png`,
   isCorrectChoice: index > 0 && index < 5,
-  score: index > 0 && index < 5 ? 25 : 0
+  score: index > 0 && index < 5 ? 25 : 0,
+  clickedImgPath: `/assets/images/crocodile-game/bubble${index + 1}Clicked.png`,
 }));

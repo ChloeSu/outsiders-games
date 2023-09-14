@@ -15,7 +15,7 @@ export class RabbitGameComponent {
   stageImgMap = stageImgMap;
   pageStages = pageStages;
   currentStage = pageStages.desc1;
-  showDescImg: string = "";
+  showDescImg: string = "/assets/images/rabbit-game/start.png";
   okDefaultPos: { position: { x: number, y: number}} = { position: { x:0, y:0}};
   movingOkPos: { position: { x: number, y: number}} = { position: { x:0, y:0}};
 

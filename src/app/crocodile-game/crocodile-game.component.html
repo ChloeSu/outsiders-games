@@ -1,7 +1,7 @@
-<div class="container" #container>
+<div class="game-container" #container>
   <!-- show description image if not in gaming stage  -->
   <div *ngIf="currentStage != pageStages.gaming" (click)="changeStage()" class="stage-desc">
-    <img [src]="stageImgMap[currentStage].img" class="cow-image" alt="Cow">
+    <img [src]="stageImgMap[currentStage].img" class="crocodile-image" alt="Cow">
   </div>
   <div *ngIf="currentStage == pageStages.gaming">
     <div class="hp-container mt-3">
@@ -15,7 +15,7 @@
       </div>
       <ng-container *ngFor="let message of viewMsgs; let i=index;">
         <div class="bubble" [ngClass]="'bubble' + (i+1)" (click)="bubbleClick(i)">
-          <img src="{{message.imgPath}}">
+          <img src="{{ message.isClicked ? message.clickedImgPath : message.imgPath}}">
         </div>
       </ng-container>
     </div>

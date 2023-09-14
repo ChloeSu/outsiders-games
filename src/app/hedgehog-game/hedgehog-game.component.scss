@@ -114,10 +114,16 @@ img {
   .main {
     height: 100dvh;
     width: 80dvw;
+    margin: auto;
 
     .hedgehog-container {
       width: 20%;
       top: 65%;
     }
+  }
+
+  .desc-image {
+    height: 100dvh;
+    object-fit: fill;
   }
 }

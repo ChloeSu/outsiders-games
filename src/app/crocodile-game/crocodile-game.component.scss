@@ -101,6 +101,12 @@ img {
   .main {
     height: 100dvh;
     width: 80dvw;
+    margin: auto;
+  }
+
+  .crocodile-image {
+    height: 100dvh;
+    object-fit: fill;
   }
 }
 

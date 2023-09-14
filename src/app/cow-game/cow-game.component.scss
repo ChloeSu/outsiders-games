@@ -21,7 +21,8 @@
 }
 
 .stage-desc {
-  height: 100dvh;
+  display: flex;
+  justify-content: center;
 }
 
 
@@ -93,6 +94,10 @@
     width: 60%;
     height: 15px;
   }
+
+  .desc-image {
+    width: 100%;
+  }
 }
 
 // 橫
@@ -132,6 +137,11 @@
         object-fit: cover;
       }
     }
+  }
+
+  .desc-image {
+    height: 100dvh;
+    object-fit: fill;
   }
 }
 

@@ -1,7 +1,7 @@
 <div class="game-container">
   <!-- show description image if not in gaming stage  -->
   <div *ngIf="currentStage != pageStages.gaming" (click)="changeStage()" class="stage-desc">
-    <img [src]="stageImgMap[currentStage].img" class="rabbit-image" alt="Rabbit">
+    <img [src]="stageImgMap[currentStage].img" class="desc-image" alt="Rabbit">
   </div>
 
   <div *ngIf="currentStage == pageStages.gaming">

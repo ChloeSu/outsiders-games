@@ -21,7 +21,8 @@
 }
 
 .stage-desc {
-  height: 100dvh;
+  display: flex;
+  justify-content: center;
 }
 
 .main {
@@ -83,11 +84,20 @@
   .main {
     height: 35dvh;
   }
+
+  .desc-image {
+    width: 100%;
+  }
 }
 
 // 橫
 @media (orientation: landscape) {
   .main {
     height: 100dvh;
+  }
+
+  .desc-image {
+    height: 100dvh;
+    object-fit: fill;
   }
 }

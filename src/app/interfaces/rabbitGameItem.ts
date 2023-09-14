@@ -8,15 +8,13 @@ export interface RabbitGameItem {
 export enum pageStages {
   desc1 = 0,
   desc2 = 1,
-  start = 2,
-  gaming = 3,
-  end = 4
+  gaming = 2,
+  end = 3
 }
 
 export const stageImgMap = [
   { stage: pageStages.desc1 , img: "/assets/images/rabbit-game/desc1.png" },
   { stage: pageStages.desc2 , img: "/assets/images/rabbit-game/desc2.png" },
-  { stage: pageStages.start , img: "/assets/images/rabbit-game/start.png" },
   { stage: pageStages.gaming , img: "/assets/images/rabbit-game/rabbit.png" },
   { stage: pageStages.end , img: "/assets/images/rabbit-game/end.png" },
 ];
