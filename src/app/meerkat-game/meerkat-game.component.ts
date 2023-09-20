@@ -11,7 +11,7 @@ export class MeerkatGameComponent {
   items: MeerkatGameItem[] = items;
   stageImgMap = stageImgMap;
   pageStages = pageStages;
-  currentStage = pageStages.gaming;
+  currentStage = pageStages.desc1;
 
   constructor(
   ) {
