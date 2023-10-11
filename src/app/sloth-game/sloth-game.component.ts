@@ -114,7 +114,7 @@ export class SlothGameComponent {
 
     const onMoved = () => {
       canDrag = true;
-      if(this.items.every(x => x.isShown)) {
+      if (this.items[this.items.length-1].isShown) {
         window.setTimeout(() => this.changeStage(), 600);
       }
     }
